@@ -19,7 +19,15 @@ class MenuScene extends BaseScene {
     }
 
     update() {
+      this.moveBackgroundParalax();
     }    
+  
+    moveBackgroundParalax() {
+      this.bg.tilePositionX += 0.05;
+      this.trees.tilePositionX += 0.02;
+      this.fg.tilePositionX += 0.1;
+      this.fog.tilePositionX += 0.3;
+    }
 
     setupMenuEvents(menuItem) {
       const textGO = menuItem.textGO;

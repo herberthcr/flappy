@@ -34,6 +34,7 @@ class PlayScene extends BaseScene {
     create(){
         this.currentDifficulty = 'easy';
         super.create();
+        this.createBG();
         this.createBird();
         this.createPipes();
         this.createColliders();
@@ -59,7 +60,15 @@ class PlayScene extends BaseScene {
     update() {
         this.checkGameStatus();
         this.recyclePipes();
+        this.moveBackgroundParalax();
     }    
+
+    moveBackgroundParalax() {
+      this.bg.tilePositionX += 0.1;
+      this.trees.tilePositionX += 0.14;
+      this.fg.tilePositionX += 0.2;
+      this.fog.tilePositionX += 0.7;
+    }
 
     checkGameStatus() {
         if (this.bird.getBounds().bottom >= this.config.height || this.bird.y <= 0) {
@@ -74,10 +83,6 @@ class PlayScene extends BaseScene {
         this.add.text(16, 52, `Best score: ${bestScore || 0}`, { fontSize: '18px', fill: '#000'});
     }
 
-    createBG() {
-        this.add.image(0,0,'sky').setOrigin(0);
-    }
-    
     createBird() {
         this.bird = this.physics.add.sprite(this.config.startPosition.x, this.config.startPosition.y, 'bird')
         .setFlipX(true)
