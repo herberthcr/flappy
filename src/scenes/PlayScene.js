@@ -99,8 +99,9 @@ class PlayScene extends BaseScene {
     createScore() {
         this.score = 0;
         const bestScore = localStorage.getItem('bestScore');
-        this.scoreText = this.add.text(16,16, `Score: ${this.score}`, { fontSize: '32px', fill: '#000'});
-        this.add.text(16, 52, `Best score: ${bestScore || 0}`, { fontSize: '18px', fill: '#000'});
+        this.scoreText = this.add.bitmapText(16,16, "pixelfont", `Score: ${this.score}` , 32); 
+        this.add.bitmapText(16,52, "pixelfont",  `Best score: ${bestScore || 0}` , 24);
+
     }
 
     createBird() {
@@ -250,7 +251,7 @@ class PlayScene extends BaseScene {
 
         this.add.tween({
           targets:  this.bird,
-          angle: Phaser.Math.Between(-1,-30), // '+=100'
+          angle: Phaser.Math.Between(-1,-30), 
           ease: "Linear", // 'Cubic', 'Elastic', 'Bounce', 'Back'
           duration: 0.1,
           repeat: 0,
@@ -282,7 +283,7 @@ class PlayScene extends BaseScene {
 
         this.pauseEvent = this.events.on('resume', () => {
           this.initialTime = 3;
-          this.countDownText = this.add.text(...this.screenCenter, 'Fly in: ' + this.initialTime, this.fontOptions).setOrigin(0.5);
+          this.countDownText = this.add.bitmapText(...this.screenCenter, "pixelfont",  'Fly in: ' + this.initialTime , this.fontSize).setOrigin(0.5);
           this.timedEvent = this.time.addEvent({
             delay: 1000,
             callback: this.countDown,

@@ -6,8 +6,8 @@ class BaseScene extends Phaser.Scene {
     super(key);
     this.config = config;
     this.screenCenter = [config.width / 2, config.height / 2];
-    this.fontSize = 34;
-    this.lineHeight = 42;
+    this.fontSize = 40;
+    this.lineHeight = 64;
     this.fontOptions = {fontSize: `${this.fontSize}px`, fill: '#fff'};
 
     this.AssetKeys = {
@@ -42,8 +42,21 @@ class BaseScene extends Phaser.Scene {
   createMenu(menu, setupMenuEvents) {
     let lastMenuPositionY = 0;
     menu.forEach(menuItem => {
-      const menuPosition = [this.screenCenter[0], this.screenCenter[1] + lastMenuPositionY];
-      menuItem.textGO = this.add.text(...menuPosition, menuItem.text, this.fontOptions).setOrigin(0.5, 1);
+      const menuPosition = [this.screenCenter[0], this.screenCenter[1]+30 + lastMenuPositionY];
+      
+      menuItem.textGO = this.add.bitmapText(...menuPosition, "pixelfont", menuItem.text, this.fontSize).setOrigin(0.5, 1);
+
+      this.add.tween({
+        targets:  menuItem.textGO,
+        scaleX: 1.01,
+        scaleY: 1.01,
+        ease: "Elastic", // 'Cubic', 'Elastic', 'Bounce', 'Back'
+        duration: 6000,
+        repeat: -1, // -1: infinity
+        yoyo: false
+      });
+
+      
       lastMenuPositionY += this.lineHeight;
       setupMenuEvents(menuItem);
 

@@ -18,10 +18,10 @@ class PauseScene extends BaseScene {
     const textGO = menuItem.textGO;
     textGO.setInteractive();
     textGO.on('pointerover', () => {
-      textGO.setStyle({fill: '#ff0'});
+      textGO.setTint(0xead476);
     })
     textGO.on('pointerout', () => {
-      textGO.setStyle({fill: '#fff'});
+      textGO.setTint(0xffffff);
     })
     textGO.on('pointerup', () => {
         if (menuItem.scene && menuItem.text === 'Continue') {

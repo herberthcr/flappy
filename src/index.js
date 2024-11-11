@@ -5,6 +5,7 @@ import MenuScene from './scenes/MenuScene';
 import PreloadScene from './scenes/PreloadScene';
 import ScoreScene from './scenes/ScoreScene';
 import PauseScene from './scenes/PauseScene';
+import SplashScene  from './scenes/SplashScene';
 
 
 const WIDTH = 400;
@@ -17,13 +18,18 @@ const SHARED_CONFIG = {
   startPosition: BIRD_POSITION
 }
 
-const Scenes = [PreloadScene, MenuScene, ScoreScene, PlayScene, PauseScene] ;
+const Scenes = [PreloadScene, MenuScene, ScoreScene, PlayScene, PauseScene, SplashScene] ;
 const createScene = Scene => new Scene(SHARED_CONFIG)
 const initScenes = () => Scenes.map(createScene)
 
 const config = {
   type: Phaser.AUTO,
+  parent: "phaser-container",
   ...SHARED_CONFIG,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
   pixelArt: true,
   physics: {
     // Arcarde physics plugin, manage physics simulation

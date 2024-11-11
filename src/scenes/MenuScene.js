@@ -11,12 +11,23 @@ class MenuScene extends BaseScene {
         {scene: 'ScoreScene', text: 'Score'},
         {scene: null, text: 'Exit'},
       ]
-      
+      this.logo = null;
+      this.empat = null;
     }
 
     create(){
       super.create();
       this.createMenu(this.menu, this.setupMenuEvents.bind(this));
+
+      // this.add.image(this.scale.width / 8, this.scale.height / 8, "logo");
+      this.logo = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/1.8, 'logo')
+      .setScale(0.25)
+      .setOrigin(-0.25, 0);
+
+      this.empat = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/10, 'empat')
+      //.setScale(0.3)
+      .setOrigin(-0.4, 0);
+      //const fx = this.logo.postFX.addShine(1, .2, 5);
     }
 
     update() {
@@ -36,10 +47,10 @@ class MenuScene extends BaseScene {
       
       
       textGO.on('pointerover', () => {
-        textGO.setStyle({fill: '#ff0'});
+        textGO.setTint(0xead476);
       })
       textGO.on('pointerout', () => {
-        textGO.setStyle({fill: '#fff'});
+        textGO.setTint(0xffffff);
       })
       
       textGO.on('pointerup', () => {
