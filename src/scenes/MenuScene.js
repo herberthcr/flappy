@@ -11,6 +11,7 @@ class MenuScene extends BaseScene {
         {scene: 'ScoreScene', text: 'Score'},
         {scene: null, text: 'Exit'},
       ]
+      
     }
 
     create(){
@@ -32,6 +33,8 @@ class MenuScene extends BaseScene {
     setupMenuEvents(menuItem) {
       const textGO = menuItem.textGO;
       textGO.setInteractive();
+      
+      
       textGO.on('pointerover', () => {
         textGO.setStyle({fill: '#ff0'});
       })
@@ -40,6 +43,7 @@ class MenuScene extends BaseScene {
       })
       
       textGO.on('pointerup', () => {
+        this.chippingSong.stop();
         menuItem.scene && this.scene.start(menuItem.scene);
         if (menuItem.text === 'Exit') {
           this.game.destroy(true);

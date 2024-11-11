@@ -6,6 +6,9 @@ class PlayScene extends BaseScene {
         super('PlayScene', config);
         this.bird = null;
         this.pipes = null;
+        this.gameSong = null;
+        this.deathSoundEffect = null;
+        this.flapSoundEffect = null;
         this.velocity = 200;
         this.pipesToRender = 4;
         this.flapVelocity = 300;
@@ -42,6 +45,7 @@ class PlayScene extends BaseScene {
         this.createPause();
         this.handleInputs();
         this.listenToEvents();
+        this.playSongs();
 
         this.anims.create({
             key: 'fly',
@@ -53,9 +57,25 @@ class PlayScene extends BaseScene {
             // repeat infinitely
             repeat: -1
           })
-
+          
           this.bird.play('fly');
     }
+
+    playSongs() {
+
+      // main game song
+      this.gameSong = this.sound.add("game");
+      this.gameSong.loop = true;
+      this.gameSong.volume= .2;
+      this.gameSong.play();
+
+      // death sound
+      this.deathSoundEffect = this.sound.add("death");
+      // flap sound
+      this.flapSoundEffect = this.sound.add("flap");
+      
+    }
+
 
     update() {
         this.checkGameStatus();
@@ -117,14 +137,28 @@ class PlayScene extends BaseScene {
     } 
 
     createPause() {
+     
        this.isPaused = false;
        const pauseButton = this.add.image(this.config.width - 10, this.config.height -10, 'pause')
            .setInteractive()
           .setScale(3)
           .setOrigin(1)
 
+          
+        this.add.tween({
+          targets:  pauseButton,
+          scaleX: 3.2,
+          scaleY: 3.2,
+          ease: "Bounce", // 'Cubic', 'Elastic', 'Bounce', 'Back'
+          duration: 3000,
+          repeat: -1, // -1: infinity
+          yoyo: false
+        });
+
+
           pauseButton.on('pointerdown', () => {
             this.isPaused = true;
+            this.gameSong.pause();
             this.physics.pause();
             this.scene.pause();
             this.scene.launch('PauseScene');
@@ -193,9 +227,13 @@ class PlayScene extends BaseScene {
       }
       
       gameOver() {
+        this.gameSong.stop();
         this.physics.pause();
         this.bird.setTint(0xEE4824);
         this.saveBestScore()
+        if(!this.deathSoundEffect.isPlaying) {
+          this.deathSoundEffect.play();
+        }
 
         this.time.addEvent({
             delay: 1000,
@@ -206,10 +244,21 @@ class PlayScene extends BaseScene {
           })   
       }
       
-      
       flap() {
-        console.log(this.isPaused);
+        this.flapSoundEffect.play();
         if (this.isPaused) {  return; }
+
+        this.add.tween({
+          targets:  this.bird,
+          angle: Phaser.Math.Between(-1,-30), // '+=100'
+          ease: "Linear", // 'Cubic', 'Elastic', 'Bounce', 'Back'
+          duration: 0.1,
+          repeat: 0,
+          yoyo: false,
+         repeat: -1, // -1: infinity
+      });
+  
+        this.flapSoundEffect.play();
         this.bird.body.velocity.y = -this.flapVelocity;
       }
 
@@ -250,6 +299,7 @@ class PlayScene extends BaseScene {
           this.isPaused = false;
           this.countDownText.setText('');
           this.physics.resume();
+          this.gameSong.resume();
           this.timedEvent.remove();
         }
       }

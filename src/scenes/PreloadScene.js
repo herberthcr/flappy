@@ -22,6 +22,10 @@ class PreloadScene extends BaseScene {
         this.load.image(this.AssetKeys.FOG, 'assets/fog.png');
         this.load.image(this.AssetKeys.FOREGROUND, 'assets/foreground.png');
         this.load.image(this.AssetKeys.TREES, 'assets/trees.png');
+        this.load.audio('game', 'assets/sound/game.ogg');
+        this.load.audio('death', 'assets/sound/death.wav');
+        this.load.audio('flap', 'assets/sound/flap.wav');
+        this.load.audio('chipping', 'assets/sound/chipping.mp3');
     }
 
     create(){

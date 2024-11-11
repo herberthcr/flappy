@@ -16,15 +16,18 @@ class BaseScene extends Phaser.Scene {
       FOREGROUND: 'FOREGROUND',
       TREES: 'TREES',
     };
-
+    this.chippingSong = null;
   }
+
   create() {
-    //this.add.image(0, 0, 'sky').setOrigin(0);
     this.createBG();
     this.createBackButton();
 
+    this.chippingSong = this.sound.add("chipping");
+    this.chippingSong.loop = true;
+    this.chippingSong.volume= .5;
+    this.chippingSong.play();
   }
-
 
   createBG() {
     //this.add.image(0,0,'sky').setOrigin(0);
@@ -52,7 +55,18 @@ class BaseScene extends Phaser.Scene {
         const backButton = this.add.image(this.config.width - 10, this.config.height -10, 'back')
           .setOrigin(1)
           .setScale(2)
-          .setInteractive()
+          .setInteractive();
+
+          this.add.tween({
+            targets:  backButton,
+            scaleX: 2.1,
+            scaleY: 2.1,
+            ease: "Bounce", // 'Cubic', 'Elastic', 'Bounce', 'Back'
+            duration: 1500,
+            repeat: -1, // -1: infinity
+            yoyo: false
+          });
+
         backButton.on('pointerup', () => {
           this.scene.start('MenuScene');
         })
