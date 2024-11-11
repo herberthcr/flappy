@@ -80,7 +80,7 @@ class BaseScene extends Phaser.Scene {
             yoyo: false
           });
 
-        backButton.on('pointerup', () => {
+        backButton.on(Phaser.Input.Events.POINTER_UP, () => {
           this.scene.start('MenuScene');
         })
     }

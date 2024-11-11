@@ -25,9 +25,18 @@ class MenuScene extends BaseScene {
       .setOrigin(-0.25, 0);
 
       this.empat = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/10, 'empat')
-      //.setScale(0.3)
       .setOrigin(-0.4, 0);
-      //const fx = this.logo.postFX.addShine(1, .2, 5);
+
+      this.add.tween({
+        targets:  this.empat,
+        scaleX: 1.01,
+        scaleY: 1.01,
+        ease: "Elastic", 
+        duration: Phaser.Math.Between(4000,6000),
+        repeat: -1, // -1: infinity
+        yoyo: false
+      });
+      
     }
 
     update() {
@@ -46,14 +55,14 @@ class MenuScene extends BaseScene {
       textGO.setInteractive();
       
       
-      textGO.on('pointerover', () => {
+      textGO.on(Phaser.Input.Events.POINTER_OVER, () => {
         textGO.setTint(0xead476);
       })
-      textGO.on('pointerout', () => {
+      textGO.on(Phaser.Input.Events.POINTER_OUT, () => {
         textGO.setTint(0xffffff);
       })
       
-      textGO.on('pointerup', () => {
+      textGO.on(Phaser.Input.Events.POINTER_UP, () => {
         this.chippingSong.stop();
         menuItem.scene && this.scene.start(menuItem.scene);
         if (menuItem.text === 'Exit') {

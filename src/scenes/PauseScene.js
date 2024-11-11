@@ -17,13 +17,13 @@ class PauseScene extends BaseScene {
   setupMenuEvents(menuItem) {
     const textGO = menuItem.textGO;
     textGO.setInteractive();
-    textGO.on('pointerover', () => {
+    textGO.on(Phaser.Input.Events.POINTER_OVER, () => {
       textGO.setTint(0xead476);
     })
-    textGO.on('pointerout', () => {
+    textGO.on(Phaser.Input.Events.POINTER_OUT, () => {
       textGO.setTint(0xffffff);
     })
-    textGO.on('pointerup', () => {
+    textGO.on(Phaser.Input.Events.POINTER_UP, () => {
         if (menuItem.scene && menuItem.text === 'Continue') {
             // Shutting down the Pause Scene and resuming the Play Scene
             this.scene.stop();

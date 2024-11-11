@@ -157,7 +157,7 @@ class PlayScene extends BaseScene {
         });
 
 
-          pauseButton.on('pointerdown', () => {
+          pauseButton.on(Phaser.Input.Events.POINTER_DOWN, () => {
             this.isPaused = true;
             this.gameSong.pause();
             this.physics.pause();
@@ -171,7 +171,8 @@ class PlayScene extends BaseScene {
     }
 
     handleInputs() {
-        this.input.on('pointerdown',  this.flap, this);
+
+       this.input.on(Phaser.Input.Events.POINTER_DOWN,  this.flap, this);
         this.input.keyboard.on('keydown', (event) => {
            if(event.code === 'Space'){
             this.flap();   
@@ -284,6 +285,17 @@ class PlayScene extends BaseScene {
         this.pauseEvent = this.events.on('resume', () => {
           this.initialTime = 3;
           this.countDownText = this.add.bitmapText(...this.screenCenter, "pixelfont",  'Fly in: ' + this.initialTime , this.fontSize).setOrigin(0.5);
+
+          this.add.tween({
+            targets:  this.countDownText,
+            scaleX: 1.01,
+            scaleY: 1.01,
+            ease: "Elastic", 
+            duration: 6000,
+            repeat: -1, // -1: infinity
+            yoyo: false
+          });
+
           this.timedEvent = this.time.addEvent({
             delay: 1000,
             callback: this.countDown,
