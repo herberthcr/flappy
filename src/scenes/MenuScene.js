@@ -19,18 +19,15 @@ class MenuScene extends BaseScene {
       super.create();
       this.createMenu(this.menu, this.setupMenuEvents.bind(this));
 
-      // this.add.image(this.scale.width / 8, this.scale.height / 8, "logo");
-      this.logo = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/1.8, 'logo')
+      this.logo = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/2.5, 'logo')
       .setScale(0.25)
-      .setOrigin(-0.25, 0);
-
-      this.empat = this.add.image(this.config.startPosition.x/2, this.config.startPosition.y/10, 'empat')
-      .setOrigin(-0.4, 0);
+      .setOrigin(-0.20, 0);
+      const fx = this.logo.postFX.addShine(1, .2, 5);
 
       this.add.tween({
-        targets:  this.empat,
-        scaleX: 1.01,
-        scaleY: 1.01,
+        targets:  this.logo,
+        scaleX: 0.26,
+        scaleY: 0.26,
         ease: "Elastic", 
         duration: Phaser.Math.Between(4000,6000),
         repeat: -1, // -1: infinity

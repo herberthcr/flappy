@@ -12,8 +12,6 @@ class SplashScene extends Phaser.Scene {
 
     create() {
         this.add.image(this.scale.width / 2, this.scale.height / 2, "splash");
-        //debugger
-        //  const fx = logo.postFX.addShine(1, .2, 5);
         
         this.time.addEvent({
             delay: 2000,

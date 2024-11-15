@@ -25,7 +25,6 @@ class PreloadScene extends BaseScene {
         // intro screens
         this.load.image('splash', 'assets/splash.png');
         this.load.image('logo', 'assets/logo.png');
-        this.load.image('empat', 'assets/empat.png');
 
         // paralax scrolling BG
         this.load.image(this.AssetKeys.BACKGROUND, 'assets/background.png');
